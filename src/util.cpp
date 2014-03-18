@@ -27,6 +27,8 @@
 extern "C" {
 #include "ldo.h"
 #include "ldebug.h"
+extern const lua_Number LUA_NAN = std::numeric_limits<lua_Number>::quiet_NaN();
+extern const lua_Number LUA_INFINITY = std::numeric_limits<lua_Number>::infinity();
 }
 
 void lua_catch(lua_State * L)
