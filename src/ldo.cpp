@@ -12,6 +12,7 @@
 #define ldo_c
 #define LUA_CORE
 
+extern "C" {
 #include "lua.h"
 
 #include "lapi.h"
@@ -30,6 +31,7 @@
 #include "lundump.h"
 #include "lvm.h"
 #include "lzio.h"
+}
 
 
 

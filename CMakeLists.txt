@@ -24,7 +24,7 @@ ADD_LIBRARY(lua STATIC EXCLUDE_FROM_ALL
 	src/ldblib.c
 	src/ldebug.c
 	src/ldebug.h
-	src/ldo.c
+	src/ldo.cpp
 	src/ldo.h
 	src/ldump.c
 	src/lfunc.c
