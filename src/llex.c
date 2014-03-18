@@ -201,9 +201,11 @@ static void buffreplace (LexState *ls, char from, char to) {
 }
 
 
+/*
 #if !defined(getlocaledecpoint)
 #define getlocaledecpoint()	(localeconv()->decimal_point[0])
 #endif
+*/
 
 
 #define buff2d(b,e)	luaO_str2d(luaZ_buffer(b), luaZ_bufflen(b) - 1, e)
@@ -213,14 +215,18 @@ static void buffreplace (LexState *ls, char from, char to) {
 ** the one defined in the current locale and check again
 */
 static void trydecpoint (LexState *ls, SemInfo *seminfo) {
+#if 0
   char old = ls->decpoint;
   ls->decpoint = getlocaledecpoint();
   buffreplace(ls, old, ls->decpoint);  /* try new decimal separator */
   if (!buff2d(ls->buff, &seminfo->r)) {
     /* format error with correct decimal point: no more options */
     buffreplace(ls, ls->decpoint, '.');  /* undo change (for error message) */
+#endif
     lexerror(ls, "malformed number", TK_NUMBER);
+#if 0
   }
+#endif
 }
 
 
