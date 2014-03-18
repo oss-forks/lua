@@ -4,3 +4,6 @@ This is Lua 5.2.3, released on 11 Nov 2013.
 For installation instructions, license details, and
 further information about Lua, see doc/readme.html.
 
+Copyright (C) 2014 Nikolay Zapolnov.
+All modifications to this code are licensed under the
+same terms as the original code.

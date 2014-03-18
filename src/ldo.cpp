@@ -16,6 +16,7 @@ extern "C" {
 #include "lua.h"
 
 #include "lapi.h"
+#include "lauxlib.h"
 #include "ldebug.h"
 #include "ldo.h"
 #include "lfunc.h"
@@ -51,10 +52,11 @@ extern "C" {
 #if !defined(LUAI_THROW)
 
 #if defined(__cplusplus) && !defined(LUA_USE_LONGJMP)
+void lua_catch(lua_State *);
 /* C++ exceptions */
-#define LUAI_THROW(L,c)		throw(c)
+#define LUAI_THROW(L,c)		throw(LuaException())
 #define LUAI_TRY(L,c,a) \
-	try { a } catch(...) { if ((c)->status == 0) (c)->status = -1; }
+	try { a } catch(...) { lua_catch(L); if ((c)->status == 0) (c)->status = -1; }
 #define luai_jmpbuf		int  /* dummy variable */
 
 #elif defined(LUA_USE_ULONGJMP)
@@ -102,7 +104,7 @@ static void seterrorobj (lua_State *L, int errcode, StkId oldtop) {
 }
 
 
-l_noret luaD_throw (lua_State *L, int errcode) {
+l_noret luaD_throw (lua_State *L, int errcode) LUA_THROWS_EXCEPTION {
   if (L->errorJmp) {  /* thread has an error handler? */
     L->errorJmp->status = errcode;  /* set status */
     LUAI_THROW(L, L->errorJmp);  /* jump to it */

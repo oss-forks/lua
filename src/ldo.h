@@ -12,6 +12,12 @@
 #include "lstate.h"
 #include "lzio.h"
 
+#ifdef __cplusplus
+class LuaException {};
+#define LUA_THROWS_EXCEPTION throw(LuaException)
+#else
+#define LUA_THROWS_EXCEPTION
+#endif
 
 #define luaD_checkstack(L,n)	if (L->stack_last - L->top <= (n)) \
 				    luaD_growstack(L, n); else condmovestack(L);
@@ -39,7 +45,7 @@ LUAI_FUNC void luaD_reallocstack (lua_State *L, int newsize);
 LUAI_FUNC void luaD_growstack (lua_State *L, int n);
 LUAI_FUNC void luaD_shrinkstack (lua_State *L);
 
-LUAI_FUNC l_noret luaD_throw (lua_State *L, int errcode);
+LUAI_FUNC l_noret luaD_throw (lua_State *L, int errcode) LUA_THROWS_EXCEPTION;
 LUAI_FUNC int luaD_rawrunprotected (lua_State *L, Pfunc f, void *ud);
 
 #endif

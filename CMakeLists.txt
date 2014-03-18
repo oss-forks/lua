@@ -67,6 +67,7 @@ ADD_LIBRARY(lua STATIC EXCLUDE_FROM_ALL
 	src/lvm.h
 	src/lzio.c
 	src/lzio.h
+	src/util.cpp
 )
 
 ADD_EXECUTABLE(luai EXCLUDE_FROM_ALL src/lua.c)
