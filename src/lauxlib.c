@@ -541,7 +541,7 @@ LUALIB_API int luaL_ref (lua_State *L, int t) {
 
 
 LUALIB_API void luaL_unref (lua_State *L, int t, int ref) {
-  if (ref >= 0) {
+  if (ref > 0) {
     t = lua_absindex(L, t);
     lua_rawgeti(L, t, freelist);
     lua_rawseti(L, t, ref);  /* t[ref] = t[freelist] */
