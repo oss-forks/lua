@@ -24,17 +24,26 @@
 ** CHANGE it (define it) if you want Lua to avoid the use of any
 ** non-ansi feature or library.
 */
+/*
 #if !defined(LUA_ANSI) && defined(__STRICT_ANSI__)
 #define LUA_ANSI
 #endif
+*/
 
 
 #if !defined(LUA_ANSI) && defined(_WIN32) && !defined(_WIN32_WCE)
 #define LUA_WIN		/* enable goodies for regular Windows platforms */
+#elif !defined(LUA_ANSI) && defined(__linux__) && !defined(__ANDROID__)
+#define LUA_USE_LINUX
+#elif !defined(LUA_ANSI) && defined(__APPLE__) && defined(__MACH__)
+#define LUA_USE_MACOSX
+#elif !defined(LUA_ANSI) && (defined(BSD) || defined(__FreeBSD__) || defined(__NetBSD__) || \
+	defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__))
+#define LUA_USE_POSIX
 #endif
 
 #if defined(LUA_WIN)
-#define LUA_DL_DLL
+//#define LUA_DL_DLL
 #define LUA_USE_AFORMAT		/* assume 'printf' handles 'aA' specifiers */
 #endif
 
@@ -42,20 +51,24 @@
 
 #if defined(LUA_USE_LINUX)
 #define LUA_USE_POSIX
-#define LUA_USE_DLOPEN		/* needs an extra library: -ldl */
-#define LUA_USE_READLINE	/* needs some extra libraries */
+//#define LUA_USE_DLOPEN		/* needs an extra library: -ldl */
+//#define LUA_USE_READLINE	/* needs some extra libraries */
 #define LUA_USE_STRTODHEX	/* assume 'strtod' handles hex formats */
 #define LUA_USE_AFORMAT		/* assume 'printf' handles 'aA' specifiers */
+#ifndef LUA_USE_LONGLONG
 #define LUA_USE_LONGLONG	/* assume support for long long */
+#endif
 #endif
 
 #if defined(LUA_USE_MACOSX)
 #define LUA_USE_POSIX
-#define LUA_USE_DLOPEN		/* does not need -ldl */
-#define LUA_USE_READLINE	/* needs an extra library: -lreadline */
+//#define LUA_USE_DLOPEN		/* does not need -ldl */
+//#define LUA_USE_READLINE	/* needs an extra library: -lreadline */
 #define LUA_USE_STRTODHEX	/* assume 'strtod' handles hex formats */
 #define LUA_USE_AFORMAT		/* assume 'printf' handles 'aA' specifiers */
+#ifndef LUA_USE_LONGLONG
 #define LUA_USE_LONGLONG	/* assume support for long long */
+#endif
 #endif
 
 
