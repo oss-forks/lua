@@ -22,8 +22,8 @@
 extern const lua_Number LUA_NAN;
 extern const lua_Number LUA_INFINITY;
 
-/* MSVC does not have the C99 trunc() function. */
-#ifdef _MSC_VER
+/* MSVC earlier than 2012 does not have the C99 trunc() function. */
+#if defined(_MSC_VER) && _MSC_VER < 1700
 static double trunc(double x)
 {
 	return (x > 0 ? floor(x) : ceil(x));
