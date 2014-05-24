@@ -45,8 +45,17 @@ LUAI_FUNC void luaD_reallocstack (lua_State *L, int newsize);
 LUAI_FUNC void luaD_growstack (lua_State *L, int n);
 LUAI_FUNC void luaD_shrinkstack (lua_State *L);
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4290)
+#endif
+
 LUAI_FUNC l_noret luaD_throw (lua_State *L, int errcode) LUA_THROWS_EXCEPTION;
 LUAI_FUNC int luaD_rawrunprotected (lua_State *L, Pfunc f, void *ud);
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif
 
